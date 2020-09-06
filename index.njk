@@ -50,11 +50,13 @@
     <span class="line">Small friendly classes.</span>
     <span class="line">Suitable for all abilities.</span>
   </p>
+
   <select class="two-third">
-    <option>Thursday 4th September</option>
-    <option selected>Thursday 10th September</option>
-    <option>Thursday 17th September</option>
-    <option>Thursday 24th September</option>
+    {% for day in thursdays %}
+    <option value="{{ day.value }}" {{ day.selected }}>
+      {{ day.name }}
+    </option>
+    {% endfor %}
   </select>
   <button id="checkout-button">Book Your Place</button>
   <p id="offer">£8 per class.</p>
