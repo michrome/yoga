@@ -3,9 +3,83 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>A minimal valid HTML5 document</title>
+  <link href="css/picnic-v6.5.3.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --accent-colour: cadetblue;
+      --background-colour: floralwhite;
+    }
+    a {
+      color: var(--accent-colour);
+    }
+    body {
+      background-color: var(--background-colour);
+      max-width: 30em;
+      text-align: center;
+      margin: auto;
+    }
+    button {
+      background: var(--accent-colour);
+    }
+    span.line {
+      display: inline-block;
+    }
+    #yoga-people {
+      max-width: 90%;
+    }
+  </style>
   <script src="https://js.stripe.com/v3/"></script>
-  <p>I’m the content.</p>
-  <button id="checkout-button">Checkout</button>
+  <h1>
+    <img
+      src="images/hello-yoga.png"
+      alt="hello YOGA"
+      height="165"
+      width="230"
+    />
+  </h1>
+  <h3>Thursdays 19:00–20:00</h3>
+  <h4 id="beckwith-health-club">
+    <span class="line">Beckwith Health Club,</span>
+    <span class="line">Harrogate,</span>
+    <span class="line">HG3 1UF</span>
+  </h4>
+  <p id="yoga-action">
+    Strengthen body, increase flexibility
+    <span class="line">and calm the mind.</span>
+    <br />
+    <span class="line">Small friendly classes.</span>
+    <span class="line">Suitable for all abilities.</span>
+  </p>
+  <select class="two-third">
+    <option>Thursday 4th September</option>
+    <option selected>Thursday 10th September</option>
+    <option>Thursday 17th September</option>
+    <option>Thursday 24th September</option>
+  </select>
+  <button id="checkout-button">Book Your Place</button>
+  <p id="offer">£8 per class.</p>
+  <p>
+    For more information,
+    <span class="line"
+      >email
+      <a href="mailto:clare@hello-yoga.co.uk">clare@hello-yoga.co.uk</a>
+    </span>
+    <span class="line"
+      >or visit the
+      <a href="https://facebook.com/helloyogaharrogate"
+        >hello YOGA Facebook page</a
+      >.
+    </span>
+  </p>
+  <p>
+    <img
+      src="images/yoga-people.svg"
+      id="yoga-people"
+      alt=""
+      height="247"
+      width="433"
+    />
+  </p>
   <script>
     // Create an instance of the Stripe object with your publishable API key
     var stripe = Stripe("{{ environment.stripePublishableKey }}");
