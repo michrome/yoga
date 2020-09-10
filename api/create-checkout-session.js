@@ -1,15 +1,16 @@
 const dateHelper = require("../src/date-helper.js");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const environment = require("../_data/environment.js");
+const stripe = require("stripe")(environment.stripeSecretKey);
+
 module.exports = async (req, res) => {
   const eventDate = req.body.eventDate;
-  console.log(`eventDate is ${eventDate}`);
   const friendlyDate = dateHelper.friendlyDate(eventDate);
 
   const session = await stripe.checkout.sessions.create({
-    cancel_url: "https://www.hello-yoga.co.uk/",
+    cancel_url: environment.baseUrl,
     mode: "payment",
     payment_method_types: ["card"],
-    success_url: `https://www.hello-yoga.co.uk/success/${eventDate}`,
+    success_url: `${environment.baseUrl}/success/${eventDate}`,
     line_items: [
       {
         price_data: {

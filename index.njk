@@ -3,7 +3,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>A minimal valid HTML5 document</title>
-  <link href="{{ site.baseUrl }}/css/picnic-v6.5.3.min.css" rel="stylesheet" />
+  <link href="css/picnic-v6.5.3.min.css" rel="stylesheet" />
   <style>
     :root {
       --accent-colour: cadetblue;
@@ -34,7 +34,7 @@
   <script src="https://js.stripe.com/v3/"></script>
   <h1>
     <img
-      src="{{ site.imgBaseUrl }}/hello-yoga.png"
+      src="images/hello-yoga.png"
       alt="hello YOGA"
       height="165"
       width="230"
@@ -78,7 +78,7 @@
     const form = document.getElementById("eventDateForm");
     form.addEventListener("submit", async function (event) {
       event.preventDefault();
-      fetch("{{ site.baseUrl }}/api/create-checkout-session", {
+      fetch("api/create-checkout-session", {
         method: "POST",
         body: new URLSearchParams(new FormData(form)),
       })
