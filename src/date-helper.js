@@ -16,7 +16,7 @@ exports.upcomingThursdays = function () {
   const thursdays = [];
   while (thursdays.length < 4) {
     const t = moment()
-      .add(++weekOffset, "weeks")
+      .add(weekOffset++, "weeks")
       .isoWeekday(thursday);
     thursdays.push(t.format("YYYY-MM-DD"));
   }
