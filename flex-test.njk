@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A minimal valid HTML5 document</title>
+  <style>
+    :root {
+      --blue: #323158;
+      --gray: #f1f1f1;
+    }
+    body {
+      margin: 0;
+      background-color: var(--blue);
+      color: white;
+      font-family: ui-sans-serif, sans-serif;
+      line-height: 1.5;
+    }
+    #layout {
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: var(--gray);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    main {
+      margin: 0 0.5em;
+    }
+    #main {
+      border: 1px solid red;
+      max-width: 30em;
+      margin: 0 auto;
+    }
+    @media (min-width: 800px) and (orientation: landscape) {
+      #layout {
+        flex-direction: row;
+        height: 100vh;
+      }
+      header {
+        flex: 1;
+        max-width: 500px;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
+      #main {
+        margin: 0 1.5em;
+      }
+    }
+  </style>
+  <div id="layout">
+    <header>
+      <h1 style="border: 1px solid green">
+        <img
+          src="/images/hello-yoga-800-original-transparent.png"
+          alt="hello YOGA"
+          width="800"
+          height="800"
+          style="max-width: 60%; max-height: 75vh; width: auto; height: auto"
+        />
+      </h1>
+    </header>
+    <main>
+      <div id="main">
+        <h2>Mikey</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+          pharetra quam tristique, tristique velit vel, laoreet est. Morbi
+          imperdiet nisi ut aliquet congue.
+        </p>
+        <p>
+          In id tempus urna. Class aptent taciti sociosqu ad litora torquent per
+          conubia nostra, per inceptos himenaeos. Nunc quis nisl id quam
+          pharetra scelerisque sed non ante. Aliquam tincidunt nulla id enim
+          eleifend, blandit finibus sapien commodo. Duis cursus dolor in eros
+          porttitor, eu ultrices quam malesuada.
+        </p>
+      </div>
+    </main>
+  </div>
+</html>
