@@ -1,8 +1,13 @@
 ---
+layout: layout.njk
 pagination:
-    data: thursdays
-    size: 1
-    alias: thursday
+  data: thursdays
+  size: 1
+  alias: thursday
 permalink: "success/{{ thursday.value | slug }}/"
 ---
-Well done you booked {{ thursday.value }} {{ thursday.value | friendlyDate }}
+
+<h2>Booked</h2>
+<p>
+  Well done you booked {{ thursday.value }} {{ thursday.value | friendlyDate }}
+</p>

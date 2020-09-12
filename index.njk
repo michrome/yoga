@@ -1,275 +1,55 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>hello YOGA</title>
-  <style>
-    :root {
-      --blue: #323158;
-      --gray: #f1f1f1;
-    }
+---
+layout: layout.njk
+---
 
-    body {
-      margin: 0;
-      background-color: var(--blue);
-      color: white;
-      font-family: ui-sans-serif, sans-serif;
-      line-height: 1.5;
-    }
-
-    #layout {
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      background-color: var(--gray);
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    main {
-      margin: 0 0.5em;
-    }
-
-    #main {
-      max-width: 30em;
-      margin: 0 auto;
-    }
-
-    @media (min-width: 800px) and (orientation: landscape) {
-      #layout {
-        flex-direction: row;
-        height: 100vh;
-      }
-
-      header {
-        flex: 1;
-        max-width: 500px;
-      }
-
-      main {
-        flex: 1;
-        display: flex;
-        align-items: center;
-      }
-
-      #main {
-        margin: 0 1.5em;
-      }
-    }
-  </style>
-  <script src="https://js.stripe.com/v3/"></script>
-  <div id="layout">
-    <header>
-      <h1>
-        <img
-          src="/images/hello-yoga-800-original-transparent.png"
-          alt="hello YOGA"
-          width="800"
-          height="800"
-          style="max-width: 60%; max-height: 75vh; width: auto; height: auto"
-        />
-      </h1>
-    </header>
-    <main>
-      <div id="main">
-        <h2>Mikey</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-          pharetra quam tristique, tristique velit vel, laoreet est. Morbi
-          imperdiet nisi ut aliquet congue.
-        </p>
-        <p>
-          In id tempus urna. Class aptent taciti sociosqu ad litora torquent per
-          conubia nostra, per inceptos himenaeos. Nunc quis nisl id quam
-          pharetra scelerisque sed non ante. Aliquam tincidunt nulla id enim
-          eleifend, blandit finibus sapien commodo. Duis cursus dolor in eros
-          porttitor, eu ultrices quam malesuada.
-        </p>
-        <form id="eventDateForm">
-          <select class="half-800" name="eventDate">
-            {% for day in thursdays %}
-            <option value="{{ day.value }}" {{ day.selected }}>
-              {{ day.value | friendlyDate }}
-            </option>
-            {% endfor %}
-          </select>
-          <button id="checkout-button">Book Your Place</button>
-        </form>
-        <script>
-          const stripe = Stripe("{{ environment.stripePublishableKey }}");
-          const form = document.getElementById("eventDateForm");
-          form.addEventListener("submit", async function (event) {
-            event.preventDefault();
-            fetch("api/create-checkout-session", {
-              method: "POST",
-              body: new URLSearchParams(new FormData(form)),
-            })
-              .then(function (response) {
-                return response.json();
-              })
-              .then(function (session) {
-                return stripe.redirectToCheckout({ sessionId: session.id });
-              })
-              .then(function (result) {
-                // If `redirectToCheckout` fails due to a browser or network
-                // error, you should display the localized error message to your
-                // customer using `error.message`.
-                if (result.error) {
-                  alert(result.error.message);
-                }
-              })
-              .catch(function (error) {
-                console.error("Error:", error);
-              });
-          });
-        </script>
-      </div>
-    </main>
-  </div>
-  <!--<div class="flex one two-800">
-    <div id="heading">
-      <h1 style="max-width: 60%">
-        <img
-          src="images/hello-yoga-800-original-transparent.png"
-          alt="hello YOGA"
-        />
-      </h1>
-    </div>
-    <div id="main-content">
-      <div style="border: 1px solid green">
-        <h2>Title</h2>
-        <p>
-          I am a monkey.I am a monkey. I am a monkey.I am a monkey.I am a
-          monkey.I am a monkey.I am a monkey.I am a monkey.I am a monkey.I am a
-          monkey.I am a monkey.I am a monkey.I am a monkey.
-        </p>
-        <p>I am a monkey</p>
-        <p>I am a monkey</p>
-        <form id="eventDateForm">
-          <select class="half-800" name="eventDate">
-            {% for day in thursdays %}
-            <option value="{{ day.value }}" {{ day.selected }}>
-              {{ day.value | friendlyDate }}
-            </option>
-            {% endfor %}
-          </select>
-          <button id="checkout-button">Book Your Place</button>
-        </form>
-        <script>
-          const stripe = Stripe("{{ environment.stripePublishableKey }}");
-          const form = document.getElementById("eventDateForm");
-          form.addEventListener("submit", async function (event) {
-            event.preventDefault();
-            fetch("api/create-checkout-session", {
-              method: "POST",
-              body: new URLSearchParams(new FormData(form)),
-            })
-              .then(function (response) {
-                return response.json();
-              })
-              .then(function (session) {
-                return stripe.redirectToCheckout({ sessionId: session.id });
-              })
-              .then(function (result) {
-                // If `redirectToCheckout` fails due to a browser or network
-                // error, you should display the localized error message to your
-                // customer using `error.message`.
-                if (result.error) {
-                  alert(result.error.message);
-                }
-              })
-              .catch(function (error) {
-                console.error("Error:", error);
-              });
-          });
-        </script>
-      </div>
-    </div>
-  </div>-->
-  <!-- <h1>
-    <img
-      src="images/hello-yoga.png"
-      alt="hello YOGA"
-      height="165"
-      width="230"
-    />
-  </h1>
-  <h3>Thursdays 19:00–20:00</h3>
-  <h4 id="beckwith-health-club">
-    <span class="line">Beckwith Health Club,</span>
-    <span class="line">Harrogate,</span>
-    <span class="line">HG3 1UF</span>
-  </h4>
-  <p id="yoga-action">
-    Strengthen body, increase flexibility
-    <span class="line">and calm the mind.</span>
-    <br />
-    <span class="line">Small friendly classes.</span>
-    <span class="line">Suitable for all abilities.</span>
-  </p>
-  <form id="eventDateForm">
-    <select class="two-third" name="eventDate">
-      {% for day in thursdays %}
-      <option value="{{ day.value }}" {{ day.selected }}>
-        {{ day.value | friendlyDate }}
-      </option>
-      {% endfor %}
-    </select>
-    <button id="checkout-button">Book Your Place</button>
-  </form>
-  <script>
-    const stripe = Stripe("{{ environment.stripePublishableKey }}");
-    const form = document.getElementById("eventDateForm");
-    form.addEventListener("submit", async function (event) {
-      event.preventDefault();
-      fetch("api/create-checkout-session", {
-        method: "POST",
-        body: new URLSearchParams(new FormData(form)),
+<h2>Mikey</h2>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pharetra
+  quam tristique, tristique velit vel, laoreet est. Morbi imperdiet nisi ut
+  aliquet congue.
+</p>
+<p>
+  In id tempus urna. Class aptent taciti sociosqu ad litora torquent per conubia
+  nostra, per inceptos himenaeos. Nunc quis nisl id quam pharetra scelerisque
+  sed non ante. Aliquam tincidunt nulla id enim eleifend, blandit finibus sapien
+  commodo. Duis cursus dolor in eros porttitor, eu ultrices quam malesuada.
+</p>
+<form id="eventDateForm">
+  <select name="eventDate">
+    {% for day in thursdays %}
+    <option value="{{ day.value }}" {{ day.selected }}>
+      {{ day.value | friendlyDate }}
+    </option>
+    {% endfor %}
+  </select>
+  <button id="checkout-button">Book Your Place</button>
+</form>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe("{{ environment.stripePublishableKey }}");
+  const form = document.getElementById("eventDateForm");
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    fetch("api/create-checkout-session", {
+      method: "POST",
+      body: new URLSearchParams(new FormData(form)),
+    })
+      .then(function (response) {
+        return response.json();
       })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (session) {
-          return stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .then(function (result) {
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using `error.message`.
-          if (result.error) {
-            alert(result.error.message);
-          }
-        })
-        .catch(function (error) {
-          console.error("Error:", error);
-        });
-    });
-  </script>
-  <p id="offer">£8 per class.</p>
-  <p>
-    For more information,
-    <span class="line"
-      >email
-      <a href="mailto:clare@hello-yoga.co.uk">clare@hello-yoga.co.uk</a>
-    </span>
-    <span class="line"
-      >or visit the
-      <a href="https://facebook.com/helloyogaharrogate"
-        >hello YOGA Facebook page</a
-      >.
-    </span>
-  </p>
-  <p>
-    <img
-      src="{{ site.imgUrl }}/images/yoga-people.svg"
-      id="yoga-people"
-      alt=""
-      height="247"
-      width="433"
-    />
-  </p> -->
-</html>
+      .then(function (session) {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(function (result) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, you should display the localized error message to your
+        // customer using `error.message`.
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+  });
+</script>
