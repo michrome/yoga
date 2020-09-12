@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
           product_data: {
             name: friendlyDate,
             description: "7pm–8pm at Beckwith Health Club, Harrogate.",
-            images: ["https://www.hello-yoga.co.uk/images/hello-yoga.png"],
+            images: [environment.stripeCheckoutImage],
           },
           unit_amount: 800,
         },
