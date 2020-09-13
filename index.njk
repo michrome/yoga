@@ -24,13 +24,13 @@ layout: layout.njk
   </select>
   <button id="checkout-button">Book Your Place</button>
 </form>
-<script src="https://js.stripe.com/v3/"></script>
+<script async src="https://js.stripe.com/v3/"></script>
 <script>
   const stripe = Stripe("{{ environment.stripePublishableKey }}");
   const form = document.getElementById("eventDateForm");
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
-    fetch("api/create-checkout-session", {
+    fetch("/api/create-checkout-session", {
       method: "POST",
       body: new URLSearchParams(new FormData(form)),
     })
