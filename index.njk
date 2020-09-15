@@ -2,18 +2,13 @@
 layout: layout.njk
 ---
 
-<h2>Mikey</h2>
-<p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pharetra
-  quam tristique, tristique velit vel, laoreet est. Morbi imperdiet nisi ut
-  aliquet congue.
-</p>
-<p>
-  In id tempus urna. Class aptent taciti sociosqu ad litora torquent per conubia
-  nostra, per inceptos himenaeos. Nunc quis nisl id quam pharetra scelerisque
-  sed non ante. Aliquam tincidunt nulla id enim eleifend, blandit finibus sapien
-  commodo. Duis cursus dolor in eros porttitor, eu ultrices quam malesuada.
-</p>
+<h2>Book your place</h2>
+{% for day in thursdays %}
+<h4>{{ day.value | friendlyDate }}</h4>
+<p>7pm–8pm <button>Book</button></p>
+<p>Beckwith Health Club, Harrogate. HG3 1UF</p>
+<hr />
+{% endfor %}
 <form id="eventDateForm">
   <select name="eventDate">
     {% for day in thursdays %}
