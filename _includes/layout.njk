@@ -24,6 +24,7 @@
     :root {
       --blue: #323158;
       --gray: #f1f1f1;
+      --logo-width: 300px;
     }
 
     body {
@@ -58,27 +59,24 @@
     }
 
     #logo {
-      overflow: hidden;
-      height: 0;
-      padding-top: 50%;
-      background: url(/images/hello-yoga-300-blue-on-transparent.png);
-      width: 60%;
-      max-width: 300px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
+      width: 50vw;
+      height: 50vw;
+      max-width: var(--logo-width);
+      max-height: var(--logo-width);
     }
 
     @media (min-width: 800px) and (orientation: landscape) {
       #layout {
         flex-direction: row;
-        /* height: 100vh; */
+        min-height: 100vh;
       }
 
       header {
         flex: 1;
         max-width: 500px;
         max-height: none;
+        align-items: unset;
+        padding-top: calc(50vh - (var(--logo-width) / 2));
       }
 
       main {
@@ -94,7 +92,16 @@
   </style>
   <div id="layout">
     <header>
-      <h1 id="logo">hello YOGA</h1>
+      <h1>
+        <a href="/">
+          <img
+            id="logo"
+            src="/images/hello-yoga-300-blue-on-transparent.png"
+            width="300"
+            height="300"
+            alt="hello YOGA"
+        /></a>
+      </h1>
     </header>
     <main>
       <div id="main">

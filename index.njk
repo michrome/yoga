@@ -8,6 +8,11 @@ layout: layout.njk
 <p>7pm–8pm <button>Book</button></p>
 <p>Beckwith Health Club, Harrogate. HG3 1UF</p>
 <hr />
+{% endfor %} {% for day in thursdays %}
+<h4>{{ day.value | friendlyDate }}</h4>
+<p>7pm–8pm <button>Book</button></p>
+<p>Beckwith Health Club, Harrogate. HG3 1UF</p>
+<hr />
 {% endfor %}
 <form id="eventDateForm">
   <select name="eventDate">
