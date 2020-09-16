@@ -1,3 +1,7 @@
+---
+logoWidth: 300
+---
+
 <!DOCTYPE html>
 <html lang="en-GB">
   <meta charset="utf-8" />
@@ -24,7 +28,7 @@
     :root {
       --blue: #323158;
       --gray: #f1f1f1;
-      --logo-width: 300px;
+      --logo-width: {{ logoWidth }}px;
     }
 
     body {
@@ -96,9 +100,9 @@
         <a href="/">
           <img
             id="logo"
-            src="/images/hello-yoga-300-blue-on-transparent.png"
-            width="300"
-            height="300"
+            src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
+            width="{{ logoWidth }}"
+            height="{{ logoWidth }}"
             alt="hello YOGA"
         /></a>
       </h1>
