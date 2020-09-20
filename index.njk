@@ -2,18 +2,75 @@
 layout: layout.njk
 ---
 
+<style>
+  h3 {
+    margin-bottom: 0;
+    margin-top: 2em;
+    font-size: 1.1rem;
+  }
+  ol {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  table {
+    margin-left: 0.8em;
+  }
+  td {
+    padding: 0.2em 0;
+    padding-right: 1em;
+  }
+  .book,
+  .full {
+    display: inline-block;
+    padding: 0.3em;
+    text-align: center;
+    width: 3em;
+  }
+  .book {
+    border: 1px solid white;
+  }
+  .full {
+    background-color: #d64550;
+  }
+</style>
+
 <h2>Book your place</h2>
-{% for day in thursdays %}
-<h4>{{ day.value | friendlyDate }}</h4>
-<p>7pm–8pm <button>Book</button></p>
-<p>Beckwith Health Club, Harrogate. HG3 1UF</p>
-<hr />
-{% endfor %} {% for day in thursdays %}
-<h4>{{ day.value | friendlyDate }}</h4>
-<p>7pm–8pm <button>Book</button></p>
-<p>Beckwith Health Club, Harrogate. HG3 1UF</p>
-<hr />
-{% endfor %}
+<ol>
+  {% for day in thursdays %}
+  <li>
+    <h3>{{ day.value | friendlyDate }}</h3>
+  </li>
+  <table>
+    <tr>
+      <td>1pm-2pm</td>
+      <td>1 Cardale Park</td>
+      <td>
+        <span class="book">Book</span>
+      </td>
+    </tr>
+    <tr>
+      <td>7pm–8pm</td>
+      <td>Beckwith Health Club</td>
+      <td>
+        <span class="full">Full</span>
+      </td>
+    </tr>
+  </table>
+  {% endfor %}
+</ol>
+
+<!-- <form id="eventDateForm">
+  <select name="eventDate">
+    {% for day in thursdays %}
+    <optgroup label="{{ day.value | friendlyDate }}" {{ day.selected }}>
+      <option>1pm–2pm, Cardale Park</option>
+      <option>7pm–8pm, Beckwith Health Club</option>
+    </optgroup>
+    {% endfor %}
+  </select>
+  <button id="checkout-button">Book Your Place</button>
+</form>
+
 <form id="eventDateForm">
   <select name="eventDate">
     {% for day in thursdays %}
@@ -23,7 +80,7 @@ layout: layout.njk
     {% endfor %}
   </select>
   <button id="checkout-button">Book Your Place</button>
-</form>
+</form> -->
 <script defer src="https://js.stripe.com/v3/"></script>
 <script>
   window.addEventListener("DOMContentLoaded", function () {
