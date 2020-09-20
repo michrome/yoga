@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    {% include "./css/output.css" %}
+  </style>
+  <title>Testing Tailwind</title>
+  <h1 class="text-2xl text-center font-bold">I am a heading</h1>
+  <p class="">
+    I’m the content.
+    <button class="button">I'm a button</button>
+  </p>
+  <ul>
+    <li>Installed tailwindcss with `npm install --save-dev tailwindcss`</li>
+    <li>Created a config file with `npx tailwindcss init`</li>
+    <li>Updated config to enable future modes</li>
+    <li>
+      Created `style.css` import tailwind and define a class for the button
+    </li>
+    <li>
+      At this point we have to generate our output css file manually using `npx
+      tailwindcss build ./css/style.css -o ./css/output.css`.
+    </li>
+  </ul>
+</html>
