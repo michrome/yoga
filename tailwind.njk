@@ -3,9 +3,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    {% include "./css/output.css" %}
+    {% include "_tmp/style.css" %}
   </style>
-  <title>Testing Tailwind</title>
+  <title>Testing Tailwind.</title>
   <article class="prose">
     <h1 class="">I am a heading</h1>
     <p class="">
@@ -31,6 +31,34 @@
         Installed the typography plugin with
         <kbd>npm install --save-dev @tailwindcss/typography</kbd> and updated
         <code>tailwind.config.js</code>
+      </li>
+      <li>
+        Ran
+        <kbd
+          >npm install --save-dev postcss-cli @fullhuman/postcss-purgecss
+        </kbd>
+      </li>
+      <li>Created <code>postcss.config.js</code></li>
+      <li>Make a <code>_tmp</code> directory</li>
+      <li>
+        Now you can run
+        <kbd>npx postcss css/style.css -o _tmp/style.css --watch</kbd>
+      </li>
+      <li>
+        Install a css cleaner with
+        <kbd>npm install --save-dev postcss-clean</kbd>
+      </li>
+      <li>
+        We add <code>_tmp</code> to our <code>.gitignore</code> and we also add
+        it as a 11ty watch target, which means we have to disable use gitignore
+        in <code>.eleventy.js</code> which in turn meant we had to create a
+        <code>.eleventyignore</code> so that we could exclude
+        <code>node_modules</code>.
+      </li>
+      <li>
+        Because we're injecting the CSS into HTML, we run two postcss filters
+        and we also have to tell browser sync not to inject via its settings in
+        <code>.eleventy.js</code>.
       </li>
     </ul>
   </article>
