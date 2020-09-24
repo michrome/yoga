@@ -1,0 +1,80 @@
+---
+logoWidth: 300
+---
+
+<!DOCTYPE html>
+<html lang="en-GB">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/images/icon-32-blue-on-transparent.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/images/icon-16-blue-on-transparent.png"
+  />
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/images/icon-180-blue-on-transparent.png"
+  />
+  <title>hello YOGA</title>
+  <style>
+    {% include "_tmp/style.css" %}
+  </style>
+
+  <!-- <header class="flex items-center justify-center bg-cultured">
+    <h1 class="" style="border: 1px solid red">
+      <a href="/" class="" style="border: 1px solid green">
+        <img
+          id="logo"
+          src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
+          width="{{ logoWidth }}"
+          height="{{ logoWidth }}"
+          alt="hello YOGA"
+          class="inline w-halfscreen max-h-halfscreen"
+          style="width: 50vw; height: 50vw; border: 1px solid blue"
+      /></a>
+    </h1>
+  </header>
+  <main class="prose text-white bg-spacecadet">
+    <p class="">Book your place</p>
+  </main> -->
+  <header>
+    <h2 class="bg-cultured">
+      <a href="/">
+        <img
+          class="object-scale-down h-40 w-full"
+          src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
+          width="{{ logoWidth }}"
+          height="{{ logoWidth }}"
+        />
+      </a>
+    </h2>
+  </header>
+  <!--
+  <div id="layout">
+    <header>
+      <h1>
+        <a href="/">
+          <img
+            id="logo"
+            src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
+            width="{{ logoWidth }}"
+            height="{{ logoWidth }}"
+            alt="hello YOGA"
+        /></a>
+      </h1>
+    </header>
+    <main>
+      <div id="main">
+        {{ content | safe }}
+      </div>
+    </main>
+  </div>-->
+</html>
