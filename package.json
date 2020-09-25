@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "css": "mkdir -p _tmp && npx postcss css/style.css -o _tmp/style.css",
+    "build": "npm run css && npx @11ty/eleventy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
