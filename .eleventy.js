@@ -5,7 +5,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addWatchTarget("./css/");
   eleventyConfig.on("beforeWatch", () => {
-    require("child_process").exec("npm run css");
+    require("child_process").execSync("npm run css");
   });
   eleventyConfig.setBrowserSyncConfig({
     snippetOptions: {
