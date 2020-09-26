@@ -6,15 +6,19 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
-      maxHeight: {
-        halfscreen: "50vh",
-      },
-      width: {
-        halfscreen: "50vw",
-      },
       colors: {
         cultured: "#f1f1f1",
         spacecadet: "#323158",
+      },
+    },
+    typography: {
+      default: {
+        css: {
+          color: "#fff",
+          "h2, h3, h4": {
+            color: "#fff",
+          },
+        },
       },
     },
   },

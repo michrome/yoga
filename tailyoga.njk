@@ -3,7 +3,7 @@ logoWidth: 300
 ---
 
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-GB" class="bg-spacecadet">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link
@@ -28,20 +28,25 @@ logoWidth: 300
     {% include "_tmp/style.css" %}
   </style>
 
-  <!-- <header class="flex items-center justify-center bg-cultured"> <h1 class="" style="border: 1px solid red"> <a href="/" class="" style="border: 1px solid green"> <img id="logo" src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png" width="{{ logoWidth }}" height="{{ logoWidth }}" alt="hello YOGA" class="inline w-halfscreen max-h-halfscreen" style="width: 50vw; height: 50vw; border: 1px solid blue" /></a> </h1> </header> <main class="prose text-white bg-spacecadet"> <p class="">Book your place</p> </main> -->
-  <header>
-    <h2 class="bg-cultured">
+  <header class="bg-cultured">
+    <h1 class="">
       <a href="/">
         <img
-          class="object-scale-down h-40 w-full"
           src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
           width="{{ logoWidth }}"
           height="{{ logoWidth }}"
+          class="object-scale-down h-56 w-full px-20"
         />
       </a>
-    </h2>
+    </h1>
   </header>
-  <p class="prose text-2xl">nikey mike</p>
-  <button class="button">M</button>
+  <main class="prose">
+    <h2>Book your place</h2>
+    <h3>Book your place</h3>
+    <h4>Book your place</h4>
+    <p>Book your place</p>
+    <button class="button">M</button>
+  </main>
+
   <!-- <div id="layout"> <header> <h1> <a href="/"> <img id="logo" src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png" width="{{ logoWidth }}" height="{{ logoWidth }}" alt="hello YOGA" /></a> </h1> </header> <main> <div id="main"> {{ content | safe }} </div> </main> </div>-->
 </html>
