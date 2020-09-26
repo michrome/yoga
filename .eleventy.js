@@ -3,9 +3,11 @@ module.exports = function (eleventyConfig) {
     return require("./src/date-helper.js").friendlyDate(value);
   });
   eleventyConfig.addPassthroughCopy("images");
-  eleventyConfig.addWatchTarget("_tmp/");
+  eleventyConfig.addWatchTarget("./css/");
+  eleventyConfig.on("beforeWatch", () => {
+    require("child_process").exec("npm run css");
+  });
   eleventyConfig.setBrowserSyncConfig({
-    injectChanges: false,
     snippetOptions: {
       // Insert BrowserSync's JavaScript immediately after the DOCTYPE tag,
       // instead of the <body> tag.
