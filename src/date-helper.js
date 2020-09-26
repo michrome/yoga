@@ -1,11 +1,8 @@
 const moment = require("moment");
 
 exports.friendlyDate = function (date) {
-  console.log(`friendlyDate input: ${date}`);
   d = moment(date);
-  console.log(`friendlyDate converted to moment: ${d}`);
   output = d.format("dddd Do MMMM");
-  console.log(`friendlyDate output: ${output}`);
   return output;
 };
 
