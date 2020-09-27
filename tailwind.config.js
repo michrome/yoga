@@ -9,6 +9,8 @@ module.exports = {
       colors: {
         cultured: "#f1f1f1",
         spacecadet: "#323158",
+        liberty: "#5A589D",
+        darkslateblue: "#444276",
       },
     },
     typography: {
