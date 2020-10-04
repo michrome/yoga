@@ -1,0 +1,31 @@
+{
+  "1-cardale-park": {
+    "name": "1 Cardale Park",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Beckwith Head Road",
+      "addressLocality": "Harrogate",
+      "addressRegion": "North Yorkshire",
+      "postalCode": "HG3 1RY"
+    }
+  },
+  "beckwith-health-club": {
+    "name": "Beckwith Health Club",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Beckwith Health Club",
+      "addressLocality": "Harrogate",
+      "addressRegion": "North Yorkshire",
+      "postalCode": "HG3 1UF"
+    }
+  },
+  "harrogate": {
+    "name": "Harrogate",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Harrogate",
+      "addressRegion": "North Yorkshire",
+      "addressCountry": "GB"
+    }
+  }
+}

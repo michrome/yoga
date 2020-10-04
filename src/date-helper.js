@@ -1,4 +1,26 @@
 const moment = require("moment");
+const { DateTime, Settings } = require("luxon");
+Settings.defaultZoneName = "Europe/London";
+
+exports.upcomingDates = function (days = 30) {
+  let today = DateTime.local();
+  today = DateTime.local(today.year, today.month, today.day);
+  const upcomingDates = [];
+  while (upcomingDates.length < days) {
+    upcomingDates.push(today.plus({ days: upcomingDates.length }));
+  }
+  return upcomingDates;
+};
+
+exports.dayOfWeekAndDate = function (date) {
+  return date.toFormat("EEEE d LLLL");
+};
+
+exports.timeRange = function (startDate, endDate) {
+  startTime = startDate.toFormat("h:mm");
+  endTime = endDate.toFormat("h:mm a").toLowerCase();
+  return `${startTime} - ${endTime}`;
+};
 
 exports.friendlyDate = function (date) {
   d = moment(date);

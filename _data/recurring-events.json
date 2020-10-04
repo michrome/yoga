@@ -1,0 +1,26 @@
+[
+  {
+    "dayOfWeek": "Tuesday",
+    "startHour": 19,
+    "startMinute": 30,
+    "endHour": 20,
+    "endMinute": 30,
+    "placeId": "beckwith-health-club"
+  },
+  {
+    "dayOfWeek": "Thursday",
+    "startHour": 12,
+    "startMinute": 45,
+    "endHour": 13,
+    "endMinute": 30,
+    "placeId": "1-cardale-park"
+  },
+  {
+    "dayOfWeek": "Thursday",
+    "startHour": 19,
+    "startMinute": 0,
+    "endHour": 20,
+    "endMinute": 0,
+    "placeId": "beckwith-health-club"
+  }
+]

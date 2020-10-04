@@ -1,6 +1,12 @@
 module.exports = function (eleventyConfig) {
+  eleventyConfig.addFilter("dayOfWeekAndDate", function (date) {
+    return require("./src/date-helper.js").dayOfWeekAndDate(date);
+  });
   eleventyConfig.addFilter("friendlyDate", function (value) {
     return require("./src/date-helper.js").friendlyDate(value);
+  });
+  eleventyConfig.addFilter("timeRange", function (startDate, endDate) {
+    return require("./src/date-helper.js").timeRange(startDate, endDate);
   });
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addWatchTarget("./css/");

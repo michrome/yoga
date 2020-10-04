@@ -35,38 +35,29 @@ logoWidth: 300
           src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
           width="{{ logoWidth }}"
           height="{{ logoWidth }}"
-          class="object-scale-down h-56 w-full px-20"
+          class="h-56 object-scale-down px-20 w-full"
           alt="hello YOGA"
         />
       </a>
     </h1>
   </header>
-  <main class="prose m-3">
+  <main class="m-3 prose">
     <h2>Book your place</h2>
+    {% for day in events %}
+    <h3 class="">{{ day.date | dayOfWeekAndDate }}</h3>
 
-    {% for day in thursdays %}
-    <h3 class="">{{ day.value | friendlyDate }}</h3>
+    {% for e in day.events %}
     <button
-      class="text-center p-3 mt-3 rounded border-solid bg-darkslateblue hover:bg-liberty w-full"
+      class="bg-darkslateblue mt-3 p-3 rounded text-center w-full hover:bg-liberty"
     >
-      <span class="font-bold text-left w-20 border-0 inline-block"
-        ><span class="tracking-tigher">1 – 2 </span>pm</span
+      <span class="font-bold inline-block text-left tracking-tigher w-32"
+        >{{ e.startDate | timeRange(e.endDate) }}</span
       >
-      <span class="text-left w-40 border-0 inline-block">1 Cardale Park</span>
-    </button>
-    <button
-      class="text-center mt-3 p-3 rounded border-solid bg-darkslateblue hover:bg-liberty w-full"
-    >
-      <span class="font-bold text-left w-20 border-0 inline-block"
-        ><span class="tracking-tigher">7 – 8 </span>pm</span
-      >
-      <span class="text-left w-40 border-0 inline-block"
-        >Beckwith Health Club</span
+      <span class="inline-block text-left w-48 tiny:text-xs tiny:w-32"
+        >{{ places[e.placeId].name }}</span
       >
     </button>
-    {% endfor %}
+    {% endfor %} {% endfor %}
   </main>
   <footer class="h-20"></footer>
-
-  <!-- <div id="layout"> <header> <h1> <a href="/"> <img id="logo" src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png" width="{{ logoWidth }}" height="{{ logoWidth }}" alt="hello YOGA" /></a> </h1> </header> <main> <div id="main"> {{ content | safe }} </div> </main> </div>-->
 </html>

@@ -12,6 +12,9 @@ module.exports = {
         liberty: "#5A589D",
         darkslateblue: "#444276",
       },
+      screens: {
+        tiny: { max: "374px" },
+      },
     },
     typography: {
       default: {
