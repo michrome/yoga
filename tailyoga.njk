@@ -8,7 +8,12 @@ logoWidth: 300
   {% for day in events %}
   <h3 class="">{{ day.date | dayOfWeekAndDate }}</h3>
   {% for e in day.events %}
-  <button class="book-event" name="eventDate" value="2020-10-04">
+  <button
+    class="book-event"
+    name="eventDate"
+    value="{{ e.eventId }}"
+    id="{{ e.eventId }}"
+  >
     <span class="font-bold inline-block text-left tracking-tigher w-32"
       >{{ e.startDate | timeRange(e.endDate) }}</span
     >

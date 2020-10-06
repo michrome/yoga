@@ -27,6 +27,13 @@ function upcomingEvents() {
             re.endHour,
             re.endMinute
           ),
+          eventId: DateTime.local(
+            date.year,
+            date.month,
+            date.day,
+            re.startHour,
+            re.startMinute
+          ).toISO(),
         });
       }
     }
