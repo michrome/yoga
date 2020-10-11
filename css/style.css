@@ -23,6 +23,10 @@
   @apply w-full;
 }
 
-.book-event:hover {
+.book-event:active {
+  @apply bg-liberty;
+}
+
+.book-event:disabled {
   @apply bg-liberty;
 }

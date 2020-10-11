@@ -10,12 +10,13 @@ logoWidth: 300
   {% for e in day.events %}
   <button
     class="book-event"
-    name="eventDate"
+    name="eventId"
     value="{{ e.eventId }}"
     id="{{ e.eventId }}"
+    ontouchstart=""
   >
-    <span class="font-bold inline-block text-left tracking-tigher w-32"
-      >{{ e.startDate | timeRange(e.endDate) }}</span
+    <span class="font-bold inline-block text-left tracking-tigher w-32">
+      {{ e.startDate | timeRange(e.endDate) }}</span
     >
     <span class="inline-block text-left w-48 tiny:text-xs tiny:w-32"
       >{{ places[e.placeId].name }}</span
@@ -26,31 +27,46 @@ logoWidth: 300
 <script defer src="https://js.stripe.com/v3/"></script>
 <script>
   window.addEventListener("DOMContentLoaded", function () {
-    const stripe = Stripe("{{ environment.stripePublishableKey }}");
-    const form = document.getElementById("eventDateForm");
-    form.addEventListener("submit", async function (event) {
-      event.preventDefault();
-      fetch("/api/create-checkout-session", {
-        method: "POST",
-        body: new URLSearchParams(new FormData(form)),
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (session) {
-          return stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .then(function (result) {
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using `error.message`.
-          if (result.error) {
-            alert(result.error.message);
-          }
-        })
-        .catch(function (error) {
-          console.error("Error:", error);
-        });
-    });
+    const bookButtons = document.getElementsByClassName("book-event");
+    for (let b of bookButtons) {
+      b.addEventListener("click", sendToStripe.bind(this));
+    }
   });
+
+  //window.addEventListener("beforeunload", (event) => {
+  //  const bookButtons = document.getElementsByClassName("book-event");
+  //  for (let b of bookButtons) {
+  //    b.disabled = false;
+  //  }
+  //});
+
+  async function sendToStripe(event) {
+    // console.log(event.currentTarget.id);
+    event.currentTarget.disabled = true;
+    event.currentTarget.innerHTML = "Booking…";
+    event.preventDefault();
+    const stripe = Stripe("{{ environment.stripePublishableKey }}");
+    fetch("/api/create-checkout-session", {
+      method: "POST",
+      body: event.currentTarget.id,
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (session) {
+        document.getElementById(session.eventId).disabled = false;
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(function (result) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, you should display the localized error message to your
+        // customer using `error.message`.
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+  }
 </script>
