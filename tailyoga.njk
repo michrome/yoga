@@ -46,17 +46,8 @@ logoWidth: 300
     );
     event.preventDefault();
     const stripe = Stripe("{{ environment.stripePublishableKey }}");
-    fetch("/api/create-checkout-session", {
-      method: "POST",
-      body: event.currentTarget.id,
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (session) {
-        //
-        return stripe.redirectToCheckout({ sessionId: session.id });
-      })
+    stripe
+      .redirectToCheckout({ sessionId: event.currentTarget.dataset.stripeId })
       .then(function (result) {
         // If `redirectToCheckout` fails due to a browser or network
         // error, you should display the localized error message to your
@@ -69,4 +60,25 @@ logoWidth: 300
         console.error("Error:", error);
       });
   }
+
+  window.addEventListener("load", function () {
+    const stripe = Stripe("{{ environment.stripePublishableKey }}");
+    const bookButtons = document.getElementsByClassName("book-event");
+    for (let button of bookButtons) {
+      fetch("/api/create-checkout-session", {
+        method: "POST",
+        body: button.value,
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          button.dataset.stripeId = session.id;
+          console.log(session.id);
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    }
+  });
 </script>
