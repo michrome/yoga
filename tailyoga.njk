@@ -13,7 +13,6 @@ logoWidth: 300
     name="eventId"
     value="{{ e.eventId }}"
     id="{{ e.eventId }}"
-    ontouchstart=""
   >
     <span class="font-bold inline-block text-left tracking-tigher w-32">
       {{ e.startDate | timeRange(e.endDate) }}</span
@@ -26,7 +25,7 @@ logoWidth: 300
 </form>
 <!--<script defer src="https://js.stripe.com/v3/"></script>-->
 <script>
-  window.addEventListener("DOMContentLoaded", function () {
+  window.addEventListener("load", function () {
     let script = document.createElement("script");
     script.src = "https://js.stripe.com/v3/";
     script.async = false;
