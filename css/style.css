@@ -31,9 +31,8 @@
   background: repeating-linear-gradient(
     -45deg,
     #5a589d,
-    #5a589d 2rem,
     #444276 2rem,
-    #444276 4rem
+    #5a589d 4rem
   );
   background-size: 200% 200%;
   animation: loading 5s linear;
