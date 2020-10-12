@@ -27,6 +27,23 @@
   @apply bg-liberty;
 }
 
-.book-event:disabled {
-  @apply bg-liberty;
+.loading {
+  background: repeating-linear-gradient(
+    -45deg,
+    #5a589d,
+    #5a589d 2rem,
+    #444276 2rem,
+    #444276 4rem
+  );
+  background-size: 200% 200%;
+  animation: loading 5s linear;
+}
+
+@keyframes loading {
+  from {
+    background-position: 100% 100%;
+  }
+  to {
+    background-position: 0 0;
+  }
 }

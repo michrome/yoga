@@ -33,17 +33,14 @@ logoWidth: 300
     }
   });
 
-  //window.addEventListener("beforeunload", (event) => {
-  //  const bookButtons = document.getElementsByClassName("book-event");
-  //  for (let b of bookButtons) {
-  //    b.disabled = false;
-  //  }
-  //});
-
   async function sendToStripe(event) {
-    // console.log(event.currentTarget.id);
-    event.currentTarget.disabled = true;
-    event.currentTarget.innerHTML = "Booking…";
+    event.currentTarget.classList.add("loading");
+    setTimeout(
+      function (currentTarget) {
+        currentTarget.classList.remove("loading");
+      }.bind(null, event.currentTarget),
+      5000
+    );
     event.preventDefault();
     const stripe = Stripe("{{ environment.stripePublishableKey }}");
     fetch("/api/create-checkout-session", {
@@ -54,7 +51,7 @@ logoWidth: 300
         return response.json();
       })
       .then(function (session) {
-        document.getElementById(session.eventId).disabled = false;
+        //
         return stripe.redirectToCheckout({ sessionId: session.id });
       })
       .then(function (result) {

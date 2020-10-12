@@ -27,8 +27,5 @@ module.exports = {
       },
     },
   },
-  variants: {
-    backgroundColor: ["disabled"],
-  },
   plugins: [require("@tailwindcss/typography")],
 };
