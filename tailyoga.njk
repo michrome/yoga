@@ -4,54 +4,76 @@ logoWidth: 300
 ---
 
 <h2>Book your place</h2>
-<form id="eventDateForm">
-  {% for day in events %}
-  <h3 class="">{{ day.date | dayOfWeekAndDate }}</h3>
-  {% for e in day.events %}
-  <button
-    class="book-event"
-    name="eventId"
-    value="{{ e.eventId }}"
-    id="{{ e.eventId }}"
+
+{% for day in events %}
+<h3 class="">{{ day.date | dayOfWeekAndDate }}</h3>
+{% for e in day.events %}
+<button
+  class="book-event"
+  name="eventId"
+  value="{{ e.eventId }}"
+  id="{{ e.eventId }}"
+>
+  <span class="font-bold inline-block text-left tracking-tigher w-32">
+    {{ e.startDate | timeRange(e.endDate) }}</span
   >
-    <span class="font-bold inline-block text-left tracking-tigher w-32">
-      {{ e.startDate | timeRange(e.endDate) }}</span
-    >
-    <span class="inline-block text-left w-48 tiny:text-xs tiny:w-32"
-      >{{ places[e.placeId].name }}</span
-    >
-  </button>
-  {% endfor %} {% endfor %}
-</form>
+  <span class="inline-block text-left w-48 tiny:text-xs tiny:w-32"
+    >{{ places[e.placeId].name }}</span
+  >
+</button>
+{% endfor %} {% endfor %}
+
 <script defer src="https://js.stripe.com/v3/"></script>
 <script>
+  let stripe = null;
+
   window.addEventListener("DOMContentLoaded", function () {
-    //let script = document.createElement("script");
-    //script.src = "https://js.stripe.com/v3/";
-    //script.async = false;
-    //document.body.append(script);
+    stripe = Stripe("{{ environment.stripePublishableKey }}");
     const bookButtons = document.getElementsByClassName("book-event");
     for (let b of bookButtons) {
       b.addEventListener("click", sendToStripe.bind(this));
     }
   });
 
-  async function sendToStripe(event) {
-    event.currentTarget.classList.add("loading");
+  window.addEventListener("load", function () {
+    const bookButtons = document.getElementsByClassName("book-event");
+    for (let button of bookButtons) {
+      getStripeSessionId(button);
+    }
+  });
+
+  function showLoadingAnimation(bookButton) {
+    bookButton.classList.add("loading");
     setTimeout(
-      function (currentTarget) {
-        currentTarget.classList.remove("loading");
-      }.bind(null, event.currentTarget),
+      function (bookButton) {
+        bookButton.classList.remove("loading");
+      }.bind(null, bookButton),
       5000
     );
-    event.preventDefault();
-    const stripe = Stripe("{{ environment.stripePublishableKey }}");
-    stripe
-      .redirectToCheckout({ sessionId: event.currentTarget.dataset.stripeId })
+  }
+
+  async function getStripeSessionId(bookButton) {
+    if (!bookButton.dataset.stripeSessionId) {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        body: bookButton.value,
+      });
+      const json = await response.json();
+      bookButton.dataset.stripeSessionId = json.id;
+    }
+    return bookButton.dataset.stripeSessionId;
+  }
+
+  function sendToStripe(clickEvent) {
+    const bookButton = clickEvent.currentTarget;
+    showLoadingAnimation(bookButton);
+    getStripeSessionId(bookButton)
+      .then(function (sessionId) {
+        stripe.redirectToCheckout({
+          sessionId: sessionId,
+        });
+      })
       .then(function (result) {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, you should display the localized error message to your
-        // customer using `error.message`.
         if (result.error) {
           alert(result.error.message);
         }
@@ -60,25 +82,4 @@ logoWidth: 300
         console.error("Error:", error);
       });
   }
-
-  window.addEventListener("load", function () {
-    const stripe = Stripe("{{ environment.stripePublishableKey }}");
-    const bookButtons = document.getElementsByClassName("book-event");
-    for (let button of bookButtons) {
-      fetch("/api/create-checkout-session", {
-        method: "POST",
-        body: button.value,
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (session) {
-          button.dataset.stripeId = session.id;
-          console.log(session.id);
-        })
-        .catch(function (error) {
-          console.error("Error:", error);
-        });
-    }
-  });
 </script>

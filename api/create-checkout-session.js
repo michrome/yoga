@@ -34,6 +34,5 @@ module.exports = async (req, res) => {
     ],
     submit_type: "book",
   });
-
   res.json({ id: session.id, eventId: eventId });
 };
