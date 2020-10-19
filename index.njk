@@ -1,114 +1,85 @@
 ---
 layout: layout.njk
+logoWidth: 300
 ---
 
-<style>
-  h3 {
-    margin-bottom: 0;
-    margin-top: 2em;
-    font-size: 1.1rem;
-  }
-  ol {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  table {
-    margin-left: 0.8em;
-  }
-  td {
-    padding: 0.2em 0;
-    padding-right: 1em;
-  }
-  .book,
-  .full {
-    display: inline-block;
-    padding: 0.3em;
-    text-align: center;
-    width: 3em;
-  }
-  .book {
-    border: 1px solid white;
-  }
-  .full {
-    background-color: #d64550;
-  }
-</style>
-
 <h2>Book your place</h2>
-<ol>
-  {% for day in thursdays %}
-  <li>
-    <h3>{{ day.value | friendlyDate }}</h3>
-  </li>
-  <table>
-    <tr>
-      <td>1pm-2pm</td>
-      <td>1 Cardale Park</td>
-      <td>
-        <span class="book">Book</span>
-      </td>
-    </tr>
-    <tr>
-      <td>7pm–8pm</td>
-      <td>Beckwith Health Club</td>
-      <td>
-        <span class="full">Full</span>
-      </td>
-    </tr>
-  </table>
-  {% endfor %}
-</ol>
 
-<!-- <form id="eventDateForm">
-  <select name="eventDate">
-    {% for day in thursdays %}
-    <optgroup label="{{ day.value | friendlyDate }}" {{ day.selected }}>
-      <option>1pm–2pm, Cardale Park</option>
-      <option>7pm–8pm, Beckwith Health Club</option>
-    </optgroup>
-    {% endfor %}
-  </select>
-  <button id="checkout-button">Book Your Place</button>
-</form>
+{% for day in events %}
+<h3 class="">{{ day.date | dayOfWeekAndDate }}</h3>
+{% for e in day.events %}
+<button
+  class="book-event"
+  name="eventId"
+  value="{{ e.eventId }}"
+  id="{{ e.eventId }}"
+>
+  <span class="font-bold inline-block text-left tracking-tigher w-32">
+    {{ e.startDate | timeRange(e.endDate) }}</span
+  >
+  <span class="inline-block text-left w-48 tiny:text-xs tiny:w-32"
+    >{{ places[e.placeId].name }}</span
+  >
+</button>
+{% endfor %} {% endfor %}
 
-<form id="eventDateForm">
-  <select name="eventDate">
-    {% for day in thursdays %}
-    <option value="{{ day.value }}" {{ day.selected }}>
-      {{ day.value | friendlyDate }}
-    </option>
-    {% endfor %}
-  </select>
-  <button id="checkout-button">Book Your Place</button>
-</form> -->
 <script defer src="https://js.stripe.com/v3/"></script>
 <script>
+  let stripe = null;
+
   window.addEventListener("DOMContentLoaded", function () {
-    const stripe = Stripe("{{ environment.stripePublishableKey }}");
-    const form = document.getElementById("eventDateForm");
-    form.addEventListener("submit", async function (event) {
-      event.preventDefault();
-      fetch("/api/create-checkout-session", {
-        method: "POST",
-        body: new URLSearchParams(new FormData(form)),
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (session) {
-          return stripe.redirectToCheckout({ sessionId: session.id });
-        })
-        .then(function (result) {
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, you should display the localized error message to your
-          // customer using `error.message`.
-          if (result.error) {
-            alert(result.error.message);
-          }
-        })
-        .catch(function (error) {
-          console.error("Error:", error);
-        });
-    });
+    stripe = Stripe("{{ environment.stripePublishableKey }}");
+    const bookButtons = document.getElementsByClassName("book-event");
+    for (let b of bookButtons) {
+      b.addEventListener("click", sendToStripe.bind(this));
+    }
   });
+
+  window.addEventListener("load", function () {
+    const bookButtons = document.getElementsByClassName("book-event");
+    for (let button of bookButtons) {
+      getStripeSessionId(button);
+    }
+  });
+
+  function showLoadingAnimation(bookButton) {
+    bookButton.classList.add("loading");
+    setTimeout(
+      function (bookButton) {
+        bookButton.classList.remove("loading");
+      }.bind(null, bookButton),
+      5000
+    );
+  }
+
+  async function getStripeSessionId(bookButton) {
+    if (!bookButton.dataset.stripeSessionId) {
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        body: bookButton.value,
+      });
+      const json = await response.json();
+      bookButton.dataset.stripeSessionId = json.id;
+    }
+    return bookButton.dataset.stripeSessionId;
+  }
+
+  function sendToStripe(clickEvent) {
+    const bookButton = clickEvent.currentTarget;
+    showLoadingAnimation(bookButton);
+    getStripeSessionId(bookButton)
+      .then(function (sessionId) {
+        stripe.redirectToCheckout({
+          sessionId: sessionId,
+        });
+      })
+      .then(function (result) {
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+  }
 </script>
