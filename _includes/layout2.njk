@@ -28,20 +28,21 @@ logoWidth: 300
   <style>
     {% include "../_tmp/style.css" %}
   </style>
-
-  <header class="bg-cultured">
-    <h1>
-      <a href="/">
-        <img
-          src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
-          width="{{ logoWidth }}"
-          height="{{ logoWidth }}"
-          class="h-56 object-scale-down px-20 w-full"
-          alt="hello YOGA"
-        />
-      </a>
-    </h1>
-  </header>
-  <main class="m-3 prose">{{ content | safe }}</main>
-  <footer class="h-20"></footer>
+  <div class="md:flex md:flex-column">
+    <header class="bg-cultured md:pt-56">
+      <h1>
+        <a href="/">
+          <img
+            src="/images/hello-yoga-{{ logoWidth }}-blue-on-transparent.png"
+            width="{{ logoWidth }}"
+            height="{{ logoWidth }}"
+            class="h-56 object-scale-down px-20 w-full"
+            alt="hello YOGA"
+          />
+        </a>
+      </h1>
+    </header>
+    <main class="m-3 prose">{{ content | safe }}</main>
+    <footer class="h-20"></footer>
+  </div>
 </html>
