@@ -4,7 +4,7 @@ layout: layout.njk
 
 <h2>Book your place</h2>
 
-{% for day in events %}
+{% for day in eventsByDate %}
 <h3 class="">{{ day.date | dayOfWeekAndDate }}</h3>
 {% for e in day.events %}
 <button

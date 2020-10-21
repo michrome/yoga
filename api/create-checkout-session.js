@@ -6,9 +6,7 @@ const stripe = require("stripe")(environment.stripeSecretKey);
 
 module.exports = async (req, res) => {
   const eventId = req.body;
-  const event = events()
-    .flatMap((e) => e.events)
-    .find((e) => e.eventId === eventId);
+  const event = events().find((e) => e.eventId === eventId);
   const place = places[event.placeId];
   const timeRange = dateHelper.timeRange(event.startDate, event.endDate);
   const description = `${timeRange} at ${place.name}`;

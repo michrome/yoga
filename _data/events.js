@@ -6,7 +6,7 @@ const recurringEvents = require("./recurring-events.json");
 
 const upcomingDates = dateHelper.upcomingDates();
 
-function upcomingEvents() {
+module.exports = function () {
   const events = [];
   for (const date of upcomingDates) {
     for (const re of recurringEvents) {
@@ -39,7 +39,7 @@ function upcomingEvents() {
     }
   }
   return events.filter((event) => !isInHoliday(event));
-}
+};
 
 function isInHoliday(event) {
   for (const holiday of holidays()) {
@@ -49,19 +49,3 @@ function isInHoliday(event) {
   }
   return false;
 }
-
-module.exports = function () {
-  const eventsByDate = [];
-  for (date of upcomingDates) {
-    const eventsForDay = upcomingEvents().filter(
-      (event) =>
-        date.day == event.startDate.day &&
-        date.month == event.startDate.month &&
-        date.year == event.startDate.year
-    );
-    if (eventsForDay.length) {
-      eventsByDate.push({ date: date, events: eventsForDay });
-    }
-  }
-  return eventsByDate;
-};

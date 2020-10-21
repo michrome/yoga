@@ -1,13 +1,11 @@
 ---
 layout: layout.njk
 pagination:
-  data: thursdays
+  data: events
   size: 1
-  alias: thursday
-permalink: "success/{{ thursday.value | slug }}/"
+  alias: event
+permalink: "success/{{ event.eventId | slug }}/"
 ---
 
 <h2>Booked</h2>
-<p>
-  Well done you booked {{ thursday.value }} {{ thursday.value | friendlyDate }}
-</p>
+<p>Well done you booked {{ event.eventId | slug }}</p>
